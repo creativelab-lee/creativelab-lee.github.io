@@ -1,13 +1,26 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>최저가AI — 온디바이스 AI 가격비교</title>
-<meta name="description" content="여러 쇼핑몰 가격을 한 번에 비교하고, 구매 타이밍까지 기기 안에서 판단하는 AI 가격비교 앱." />
+<title>Cheapest AI — On-device price comparison</title>
+<meta name="description" content="Compare prices across retailers and judge whether to buy now or wait. All AI runs on your device." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600&family=Gaegu:wght@400;700&display=swap" rel="stylesheet" />
+
+<!-- Sovrn Commerce — auto-affiliates outbound retailer links on this page. -->
+<script type="text/javascript">
+  var vglnk = { key: 'ca736806e7be8115b8f831e256d989f5' };
+  (function(d, t) {
+    var s = d.createElement(t);
+    s.type = 'text/javascript'; s.async = true;
+    s.src = '//cdn.viglink.com/api/vglnk.js';
+    var r = d.getElementsByTagName(t)[0];
+    r.parentNode.insertBefore(s, r);
+  }(document, 'script'));
+</script>
+
 <style>
   :root{
     --bg:#F7F6F2; --surface:#FFFFFF; --ink:#191815; --soft:#615E57; --line:#E0DDD4;
@@ -15,26 +28,25 @@
     --display:'Fraunces',serif; --body:'Inter',sans-serif; --hand:'Gaegu',cursive;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased}
   a{color:inherit}
   .wrap{max-width:1060px;margin:0 auto;padding:0 24px}
 
-  header{position:sticky;top:0;z-index:20;background:rgba(247,246,242,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  .bar{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .mark{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.02em;text-decoration:none}
+  header{position:sticky;top:0;z-index:20;background:rgba(247,246,242,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;min-height:64px;gap:16px;flex-wrap:wrap;padding:8px 0}
+  .mark{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.02em;text-decoration:none;white-space:nowrap}
   .mark span{color:var(--indigo)}
-  .bar nav{display:flex;gap:22px;font-size:14px;color:var(--soft);align-items:center}
-  .bar nav a{text-decoration:none}
-  .bar nav a:hover{color:var(--ink)}
+  .langs{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .langs button{font-family:var(--body);font-size:13px;padding:5px 11px;border-radius:999px;
+    border:1px solid var(--line);background:transparent;color:var(--soft);cursor:pointer;transition:.15s}
+  .langs button:hover{border-color:var(--indigo);color:var(--ink)}
+  .langs button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 
-  .hero{padding:76px 0 26px;text-align:center}
+  .hero{padding:72px 0 24px;text-align:center}
   .eyebrow{font-family:var(--hand);font-size:22px;color:var(--indigo);margin-bottom:14px}
-  .hero h1{font-family:var(--display);font-weight:700;letter-spacing:-.025em;line-height:1.08;
-    font-size:clamp(2.2rem,5.6vw,3.9rem);max-width:20ch;margin:0 auto}
-  .hero h1 .hl{position:relative;white-space:nowrap}
-  .hero h1 .hl::after{content:"";position:absolute;left:-2px;right:-2px;bottom:.08em;height:.34em;
-    background:var(--amber);z-index:-1;border-radius:3px;transform:rotate(-1deg)}
-  .hero p{margin:22px auto 0;font-size:clamp(1rem,2.2vw,1.14rem);color:var(--soft);max-width:44ch}
+  .hero h1{font-family:var(--display);font-weight:700;letter-spacing:-.025em;line-height:1.1;
+    font-size:clamp(2.1rem,5.4vw,3.7rem);max-width:22ch;margin:0 auto}
+  .hero p{margin:22px auto 0;font-size:clamp(1rem,2.2vw,1.13rem);color:var(--soft);max-width:52ch}
 
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin:52px 0 8px}
   .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px}
@@ -44,22 +56,32 @@
     background:var(--mint);margin-bottom:10px}
   .chip.sky{background:var(--sky)} .chip.amber{background:var(--amber)}
 
-  section.block{margin:56px 0}
-  section.block h2{font-family:var(--display);font-size:24px;font-weight:600;margin-bottom:14px}
-  .picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-  .pick{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;
-    text-decoration:none;display:block;transition:border-color .15s,transform .15s}
-  .pick:hover{border-color:var(--indigo);transform:translateY(-2px)}
-  .pick .name{font-weight:600;font-size:15px;margin-bottom:6px}
-  .pick .meta{font-size:13px;color:var(--soft)}
-  .pick .go{margin-top:12px;font-size:13px;color:var(--indigo);font-weight:600}
+  section.block{margin:64px 0}
+  section.block h2{font-family:var(--display);font-size:26px;font-weight:600;margin-bottom:10px}
+  section.block > .lede{color:var(--soft);font-size:15px;margin-bottom:24px;max-width:64ch}
+
+  .picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+  .pick{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;
+    display:flex;flex-direction:column}
+  .pick .cat{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--indigo);margin-bottom:8px}
+  .pick .name{font-family:var(--display);font-weight:600;font-size:17px;margin-bottom:10px;line-height:1.3}
+  .pick .note{font-size:14px;color:var(--soft);flex:1}
+  .pick .watch{font-size:13px;color:var(--ink);background:var(--bg);border-radius:9px;
+    padding:10px 12px;margin-top:14px;border:1px solid var(--line)}
+  .pick .watch b{font-weight:600}
+  .pick a.go{margin-top:14px;display:inline-block;font-size:14px;font-weight:600;color:var(--indigo);text-decoration:none}
+  .pick a.go:hover{text-decoration:underline}
+
+  .method{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+  .method div h3{font-family:var(--display);font-size:16px;font-weight:600;margin-bottom:6px}
+  .method div p{font-size:14px;color:var(--soft)}
 
   .notice{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--amber);
-    border-radius:12px;padding:16px 18px;font-size:14px;color:var(--soft);margin:22px 0}
+    border-radius:12px;padding:16px 18px;font-size:14px;color:var(--soft);margin:16px 0}
   .notice b{color:var(--ink)}
 
-  footer{border-top:1px solid var(--line);margin-top:60px;padding:26px 0 44px;
-    font-size:13px;color:var(--soft);text-align:center;line-height:1.8}
+  footer{border-top:1px solid var(--line);margin-top:64px;padding:26px 0 48px;
+    font-size:13px;color:var(--soft);text-align:center;line-height:1.9}
 </style>
 </head>
 <body>
@@ -67,81 +89,383 @@
 <header>
   <div class="wrap bar">
     <a class="mark" href="/">creativelab<span>-everyone</span></a>
-    <nav>
-      <a href="/">홈</a>
-      <a href="#disclosure">제휴 안내</a>
-    </nav>
+    <div class="langs" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">English</button>
+      <button type="button" data-lang="ko" aria-pressed="false">한국어</button>
+      <button type="button" data-lang="zh" aria-pressed="false">中文</button>
+      <button type="button" data-lang="ja" aria-pressed="false">日本語</button>
+    </div>
   </div>
 </header>
 
 <div class="wrap">
 
   <div class="hero">
-    <div class="eyebrow">온디바이스 AI 가격비교</div>
-    <h1>가격 비교는 물론, <span class="hl">언제 살지</span>까지</h1>
-    <p>여러 쇼핑몰 가격을 한 번에 비교하고, 가격 추이를 분석해 지금이 살 때인지
-       판단합니다. 모든 AI 계산이 기기 안에서 이뤄져 검색 이력이 밖으로 나가지 않습니다.</p>
+    <div class="eyebrow" data-i18n="eyebrow"></div>
+    <h1 data-i18n="h1"></h1>
+    <p data-i18n="sub"></p>
   </div>
 
   <div class="cards">
     <div class="card">
-      <span class="chip">온디바이스</span>
-      <h3>기기 안에서 계산</h3>
-      <p>가격 예측·검색 랭킹·개인화가 모두 휴대폰 안에서 돌아갑니다. 서버로 보내는
-         개인정보가 없고 오프라인에서도 동작합니다.</p>
+      <span class="chip" data-i18n="chip1"></span>
+      <h3 data-i18n="c1h"></h3>
+      <p data-i18n="c1p"></p>
     </div>
     <div class="card">
-      <span class="chip sky">가격 추이</span>
-      <h3>지금 살까, 기다릴까</h3>
-      <p>수집한 가격 이력으로 30일 예측과 신뢰 구간을 계산해 근거와 함께 알려줍니다.
-         예측이라는 사실과 한계도 함께 표시합니다.</p>
+      <span class="chip sky" data-i18n="chip2"></span>
+      <h3 data-i18n="c2h"></h3>
+      <p data-i18n="c2p"></p>
     </div>
     <div class="card">
-      <span class="chip amber">4개 언어</span>
-      <h3>한국어·English·中文·日本語</h3>
-      <p>기기 언어를 따라 자동 전환됩니다. 가격은 판매처 통화 그대로 표시하며
-         환율 변환을 하지 않아 실제 결제 금액과 어긋나지 않습니다.</p>
+      <span class="chip amber" data-i18n="chip3"></span>
+      <h3 data-i18n="c3h"></h3>
+      <p data-i18n="c3p"></p>
     </div>
   </div>
 
   <section class="block">
-    <h2>추천 상품 살펴보기</h2>
-    <p style="color:var(--soft);font-size:14px;margin-bottom:16px">
-      아래 링크는 제휴 링크입니다. 클릭해도 추가 비용이 발생하지 않습니다.
-    </p>
-    <div class="picks">
-      <a class="pick" href="https://sovrn.co/1fq9rqk" target="_blank" rel="sponsored noopener">
-        <div class="name">Apple AirPods Pro</div>
-        <div class="meta">무선 이어폰 · 판매처에서 현재가 확인</div>
-        <div class="go">상품 보러 가기 →</div>
-      </a>
+    <h2 data-i18n="picksH"></h2>
+    <p class="lede" data-i18n="picksLede"></p>
+    <div class="picks" id="picks"></div>
+  </section>
+
+  <section class="block">
+    <h2 data-i18n="methodH"></h2>
+    <p class="lede" data-i18n="methodLede"></p>
+    <div class="method">
+      <div><h3 data-i18n="m1h"></h3><p data-i18n="m1p"></p></div>
+      <div><h3 data-i18n="m2h"></h3><p data-i18n="m2p"></p></div>
+      <div><h3 data-i18n="m3h"></h3><p data-i18n="m3p"></p></div>
     </div>
   </section>
 
   <section class="block" id="disclosure">
-    <h2>제휴 안내</h2>
-    <div class="notice">
-      <b>이 페이지의 상품 링크는 제휴 링크입니다.</b><br>
-      링크를 통해 구매가 이뤄지면 판매처로부터 일정액의 수수료를 받을 수 있습니다.
-      구매자가 부담하는 가격은 달라지지 않습니다. 수수료 여부가 추천 순서에 영향을 주지
-      않도록, 앱에서는 제휴 링크와 일반 링크를 구분해 표시합니다.
-    </div>
-    <div class="notice">
-      <b>가격 정보에 대해.</b><br>
-      표시되는 가격과 수집 시각은 수집 시점 기준이며 실제 결제 화면과 다를 수 있습니다.
-      구매 전 판매처에서 최종 가격을 확인해 주세요. AI 구매 타이밍 추천은 가격 이력에
-      기반한 통계 추정이며, 프로모션·재고·환율 변동을 반영하지 못할 수 있습니다.
-    </div>
+    <h2 data-i18n="discH"></h2>
+    <div class="notice"><b data-i18n="d1b"></b><br><span data-i18n="d1p"></span></div>
+    <div class="notice"><b data-i18n="d2b"></b><br><span data-i18n="d2p"></span></div>
+    <div class="notice"><b data-i18n="d3b"></b><br><span data-i18n="d3p"></span></div>
   </section>
 
 </div>
 
 <footer>
   <div class="wrap">
-    creativelab-everyone · 문의 creativelab.choi@gmail.com<br>
-    이 페이지는 제휴 마케팅으로 운영됩니다 · 개인정보는 기기에 보관되며 서버로 전송되지 않습니다
+    <span data-i18n="foot1"></span><br>
+    <span data-i18n="foot2"></span>
   </div>
 </footer>
+
+<script>
+/* Products. Every URL below was checked to resolve (HTTP 200) before publishing.
+   Prices are deliberately NOT listed here: they go stale within hours, and the app's
+   whole point is that you check the live price at the retailer. */
+var PRODUCTS = [
+  { id:'xm5',    url:'https://www.walmart.com/ip/Sony-WH-1000XM5-The-Best-Wireless-Noise-Canceling-Headphones-Black/386006068', store:'Walmart' },
+  { id:'appro',  url:'https://www.target.com/p/airpods-pro-2nd-generation-with-magsafe-case-usb-c/-/A-85978622', store:'Target' },
+  { id:'t7',     url:'https://www.walmart.com/ip/SAMSUNG-T7-Shield-1TB-Portable-SSD-1050MB-s-USB-3-2-Gen2-Rugged-IP65-Rated-Photographers-Content-Creators-Gaming-External-Solid-State-Drive-MU-PE1T0R/530236233', store:'Walmart' },
+  { id:'mx3s',   url:'https://www.walmart.com/ip/Logitech-MX-Master-3S-Wireless-Performance-Mouse-Ergo-8K-DPI-Quiet-Clicks-USB-C-Black/731473988', store:'Walmart' },
+  { id:'kindle', url:'https://www.target.com/p/amazon-kindle-paperwhite-2024-black/-/A-91563138', store:'Target' },
+  { id:'anker',  url:'https://www.walmart.com/ip/Anker-PD-Fast-Charging-20K-Power-Bank-with-Digital-Screen-30W/5245827264', store:'Walmart' },
+  { id:'watch',  url:'https://www.target.com/p/apple-watch-se-gps-2023-2nd-generation-40mm-midnight-aluminum-case-with-midnight-sport-band-s-m/-/A-85973664', store:'Target' }
+];
+
+var I18N = {
+  en: {
+    eyebrow:'On-device AI price comparison',
+    h1:'Compare prices — and know when to buy',
+    sub:'Cheapest AI checks prices across retailers, then reads the price history to tell you whether today is a good day to buy. Every AI computation runs on your phone, so your searches never leave the device.',
+    chip1:'On-device', c1h:'The AI runs on your phone',
+    c1p:'Search ranking, typo correction, forecasting and personalisation all execute locally. Nothing about what you search for is sent to a server, and the app keeps working offline.',
+    chip2:'Price history', c2h:'Buy now, or wait?',
+    c2p:'From collected price history the app fits a trend, projects 30 days ahead and reports a confidence band. It always shows that this is an estimate, and how wide the uncertainty is.',
+    chip3:'Four languages', c3h:'English · 한국어 · 中文 · 日本語',
+    c3p:'The app follows your device language. Prices are shown in each retailer’s own currency with no exchange-rate conversion, so what you see matches what you will actually be charged.',
+
+    picksH:'What we are watching',
+    picksLede:'A short list of products where price movement is worth tracking. We do not quote prices here — they change too fast to be trustworthy on a static page. Open the retailer to see the live price, and use the app to see where that price sits against its own history.',
+    watchLabel:'What to watch:',
+    goLabel:'View at',
+
+    methodH:'How these picks are chosen',
+    methodLede:'A price-comparison site is only useful if you know what is behind the list. Here is ours.',
+    m1h:'Price volatility first',
+    m1p:'We favour products whose price actually moves — consumer electronics that go through promotional cycles. A product with a flat price is not worth comparing.',
+    m2h:'Commission does not set the order',
+    m2p:'These links can earn us a commission, but commission rate is not an input to the ordering. In the app, affiliate and plain links are labelled differently so you can tell them apart.',
+    m3h:'No rewritten product data',
+    m3p:'We do not let the AI reword retailer product titles or specifications. It selects, ranks and comments — the underlying product data is passed through as the retailer publishes it.',
+
+    discH:'Disclosures',
+    d1b:'Affiliate disclosure.',
+    d1p:'Links on this page to retailers are affiliate links. If you buy through one, we may receive a commission from the retailer. This never changes the price you pay. Commission is not a ranking factor.',
+    d2b:'About prices.',
+    d2p:'No prices are quoted on this page. Prices at the retailer change frequently and can differ from any figure shown elsewhere, including in the app. Always confirm the final price on the retailer’s checkout page before you buy.',
+    d3b:'About the AI forecast.',
+    d3p:'Buy-timing suggestions are a statistical estimate from past prices. They cannot anticipate promotions, stock-outs or currency movements, and they can be wrong. Treat them as one input, not as advice.',
+
+    foot1:'creativelab-everyone · Contact creativelab.choi@gmail.com',
+    foot2:'This page is supported by affiliate marketing · Your data stays on your device and is not sent to our servers',
+
+    p:{
+      xm5:{ cat:'Headphones', name:'Sony WH-1000XM5 Wireless Noise-Cancelling Headphones',
+        note:'The reference point for over-ear noise cancelling. Because it has been on sale for several years, retailers discount it in waves rather than continuously — which makes the gap between list price and street price unusually wide.',
+        watch:'A newer model in the same line pushes this one down. Check whether the discount you are looking at is a genuine low or just a return to the usual street price.' },
+      appro:{ cat:'Earbuds', name:'Apple AirPods Pro (2nd generation, USB-C)',
+        note:'Apple keeps its own price fixed, so all the variation comes from third-party retailers. That is the opposite of most products, and it means comparing across stores matters more here than tracking one store over time.',
+        watch:'Spread between retailers, not the trend line. When several stores move together it is usually a manufacturer-driven promotion.' },
+      t7:{ cat:'Storage', name:'Samsung T7 Shield 1TB Portable SSD',
+        note:'Flash storage prices follow the memory market, not the retail calendar, so they can drift for months in one direction. The rugged Shield version usually carries a premium over the plain T7 for the same capacity.',
+        watch:'Cost per terabyte across capacities. The 2TB model is often better value per TB than the 1TB even when the headline number looks worse.' },
+      mx3s:{ cat:'Accessories', name:'Logitech MX Master 3S Wireless Mouse',
+        note:'A long-lived product with a stable list price and frequent short discounts. Colour variants and the Mac-specific version are priced independently, so the same mouse can sit at several different prices at once.',
+        watch:'Variant pricing. Check the other colourways before buying — they are the same hardware and are often cheaper.' },
+      kindle:{ cat:'E-reader', name:'Amazon Kindle Paperwhite (2024)',
+        note:'Sold both directly and through third-party retailers, which do not always discount at the same time. The ad-supported and ad-free configurations are separate products at separate prices.',
+        watch:'Whether the listing you are comparing includes lockscreen ads. It is the most common reason two prices for the "same" Kindle differ.' },
+      anker:{ cat:'Charging', name:'Anker 20,000mAh Power Bank (30W, digital display)',
+        note:'Power banks are a crowded category where near-identical specifications sell at very different prices. Capacity alone tells you little — output wattage and port count decide whether it can actually fast-charge a laptop.',
+        watch:'Output wattage, not capacity. Two 20,000mAh packs can differ by a factor of three in charging speed.' },
+      watch:{ cat:'Wearables', name:'Apple Watch SE (2nd generation, GPS, 40mm)',
+        note:'The entry model in the line, so its price is anchored by whatever the current flagship costs. Case size, band size and the cellular option each change the price, and retailers stock these combinations unevenly.',
+        watch:'Band and size combination. The S/M and M/L versions of the identical watch frequently sit at different prices.' }
+    }
+  },
+
+  ko: {
+    eyebrow:'온디바이스 AI 가격비교',
+    h1:'가격 비교는 물론, 언제 살지까지',
+    sub:'여러 판매처의 가격을 한 번에 비교하고, 가격 이력을 분석해 오늘이 살 만한 날인지 알려줍니다. 모든 AI 계산이 휴대폰 안에서 이뤄져 검색 이력이 기기 밖으로 나가지 않습니다.',
+    chip1:'온디바이스', c1h:'AI가 기기 안에서 돕니다',
+    c1p:'검색 랭킹, 오타 교정, 가격 예측, 개인화가 모두 로컬에서 실행됩니다. 무엇을 검색했는지가 서버로 전송되지 않고, 오프라인에서도 동작합니다.',
+    chip2:'가격 추이', c2h:'지금 살까, 기다릴까',
+    c2p:'수집한 가격 이력으로 추세를 추정하고 30일 뒤를 예측해 신뢰 구간과 함께 보여줍니다. 이것이 추정이라는 사실과 불확실성의 폭을 항상 함께 표시합니다.',
+    chip3:'4개 언어', c3h:'English · 한국어 · 中文 · 日本語',
+    c3p:'기기 언어를 따라 자동 전환됩니다. 가격은 판매처 통화 그대로 표시하며 환율 변환을 하지 않아, 화면의 숫자와 실제 결제 금액이 어긋나지 않습니다.',
+
+    picksH:'지켜보고 있는 상품',
+    picksLede:'가격 변동을 추적할 가치가 있는 상품만 골랐습니다. 이 페이지에는 가격을 적지 않습니다 — 정적 페이지에 적어 두기에는 너무 빨리 변해서 믿을 수 없기 때문입니다. 현재가는 판매처에서 확인하시고, 그 가격이 이력상 어느 위치인지는 앱에서 보세요.',
+    watchLabel:'볼 지점:',
+    goLabel:'판매처에서 보기 —',
+
+    methodH:'선정 기준',
+    methodLede:'가격비교 사이트는 목록 뒤에 무엇이 있는지 알 수 있어야 쓸모가 있습니다. 저희 기준은 이렇습니다.',
+    m1h:'변동성이 먼저',
+    m1p:'실제로 가격이 움직이는 상품, 즉 프로모션 주기를 타는 전자기기를 우선합니다. 가격이 고정된 상품은 비교할 이유가 없습니다.',
+    m2h:'수수료가 순서를 정하지 않습니다',
+    m2p:'이 링크로 수수료를 받을 수 있지만, 수수료율은 정렬에 들어가는 입력값이 아닙니다. 앱에서는 제휴 링크와 일반 링크를 구분해 표시합니다.',
+    m3h:'상품 정보를 AI가 고쳐 쓰지 않습니다',
+    m3p:'판매처가 게시한 상품명이나 사양을 AI가 바꿔 쓰지 않습니다. AI는 고르고, 순위를 매기고, 설명을 덧붙일 뿐 원본 데이터는 그대로 전달합니다.',
+
+    discH:'고지 사항',
+    d1b:'제휴 링크 고지.',
+    d1p:'이 페이지의 판매처 링크는 제휴 링크입니다. 링크를 통해 구매하시면 판매처로부터 수수료를 받을 수 있습니다. 구매자가 부담하는 금액은 달라지지 않으며, 수수료는 순위에 반영되지 않습니다.',
+    d2b:'가격에 대해.',
+    d2p:'이 페이지에는 가격을 적지 않습니다. 판매처 가격은 수시로 바뀌며 앱을 포함한 다른 곳에 표시된 숫자와 다를 수 있습니다. 구매 전 판매처 결제 화면에서 최종 금액을 반드시 확인하세요.',
+    d3b:'AI 예측에 대해.',
+    d3p:'구매 시점 제안은 과거 가격에 기반한 통계 추정입니다. 프로모션, 품절, 환율 변동을 예상하지 못하며 틀릴 수 있습니다. 판단 근거 중 하나로만 참고하세요.',
+
+    foot1:'creativelab-everyone · 문의 creativelab.choi@gmail.com',
+    foot2:'이 페이지는 제휴 마케팅으로 운영됩니다 · 개인정보는 기기에 보관되며 서버로 전송되지 않습니다',
+
+    p:{
+      xm5:{ cat:'헤드폰', name:'소니 WH-1000XM5 무선 노이즈캔슬링 헤드폰',
+        note:'오버이어 노이즈캔슬링의 기준점입니다. 출시된 지 몇 해 지나 판매처가 상시 할인이 아니라 파도처럼 할인해서, 정가와 실거래가의 간격이 유난히 넓습니다.',
+        watch:'같은 라인의 후속 모델이 나오면 이 제품 가격을 끌어내립니다. 지금 보이는 할인이 진짜 저점인지, 평소 실거래가로 돌아온 것뿐인지 확인하세요.' },
+      appro:{ cat:'이어폰', name:'애플 에어팟 프로 2세대 (USB-C)',
+        note:'애플 직판가는 고정이라 변동이 전부 서드파티 판매처에서 나옵니다. 대부분의 상품과 반대되는 구조라, 한 판매처를 오래 지켜보는 것보다 여러 판매처를 동시에 비교하는 쪽이 유효합니다.',
+        watch:'추세선이 아니라 판매처 간 가격 차이. 여러 곳이 함께 움직이면 대개 제조사 주도 프로모션입니다.' },
+      t7:{ cat:'저장장치', name:'삼성 T7 Shield 1TB 포터블 SSD',
+        note:'플래시 저장장치 가격은 유통 캘린더가 아니라 메모리 시황을 따라가서, 몇 달씩 한 방향으로 흐를 수 있습니다. 방수·방진 Shield 버전은 같은 용량의 일반 T7보다 통상 웃돈이 붙습니다.',
+        watch:'용량별 TB당 단가. 표시 가격은 비싸 보여도 2TB 모델이 1TB보다 TB당 유리한 경우가 많습니다.' },
+      mx3s:{ cat:'주변기기', name:'로지텍 MX Master 3S 무선 마우스',
+        note:'수명이 긴 제품이라 정가는 안정적이고 짧은 할인이 자주 붙습니다. 색상 변형과 맥 전용 버전의 가격이 따로 매겨져서, 같은 마우스가 동시에 여러 가격에 놓입니다.',
+        watch:'색상별 가격. 사기 전에 다른 색상을 확인하세요 — 하드웨어는 같은데 더 싼 경우가 흔합니다.' },
+      kindle:{ cat:'전자책', name:'아마존 킨들 페이퍼화이트 (2024)',
+        note:'제조사 직판과 서드파티 판매처가 함께 파는데 할인 시점이 항상 같지는 않습니다. 광고 포함형과 광고 제거형은 가격이 다른 별개 상품입니다.',
+        watch:'비교 중인 상품이 잠금화면 광고 포함인지 여부. 같은 킨들의 가격이 달라 보이는 가장 흔한 이유입니다.' },
+      anker:{ cat:'충전', name:'앤커 20,000mAh 보조배터리 (30W, 디지털 표시)',
+        note:'사양이 거의 같은데 가격 차이가 큰 혼잡한 카테고리입니다. 용량만으로는 알 수 있는 게 별로 없고, 노트북을 실제로 고속 충전할 수 있는지는 출력 와트수와 포트 수가 결정합니다.',
+        watch:'용량이 아니라 출력 와트수. 같은 20,000mAh라도 충전 속도가 세 배까지 차이 납니다.' },
+      watch:{ cat:'웨어러블', name:'애플워치 SE 2세대 (GPS, 40mm)',
+        note:'라인의 입문 모델이라 가격이 현행 플래그십 가격에 묶여 있습니다. 케이스 크기, 밴드 크기, 셀룰러 옵션이 각각 가격을 바꾸는데 판매처마다 재고 조합이 고르지 않습니다.',
+        watch:'밴드와 사이즈 조합. 똑같은 시계인데 S/M과 M/L의 가격이 다른 경우가 잦습니다.' }
+    }
+  },
+
+  zh: {
+    eyebrow:'端侧 AI 比价',
+    h1:'不只比价，还告诉你何时该买',
+    sub:'一次比较多家商家的价格，并根据价格历史判断今天是否值得买。所有 AI 计算都在手机本地完成，搜索记录不会离开设备。',
+    chip1:'端侧运行', c1h:'AI 在手机里运行',
+    c1p:'搜索排序、拼写纠正、价格预测与个性化全部在本地执行。你搜索了什么不会上传到服务器，离线也能使用。',
+    chip2:'价格走势', c2h:'现在买，还是再等等',
+    c2p:'根据收集到的价格历史拟合趋势，预测未来 30 天并给出置信区间。始终标明这是估算，以及不确定性的范围。',
+    chip3:'四种语言', c3h:'English · 한국어 · 中文 · 日本語',
+    c3p:'跟随设备语言自动切换。价格按商家所在货币原样显示，不做汇率换算，屏幕上的数字与实际结算金额不会脱节。',
+
+    picksH:'我们正在关注的商品',
+    picksLede:'只挑选价格变动值得追踪的商品。本页面不标价格 — 静态页面上的价格变化太快，不足以信赖。当前价请到商家页面查看，该价格在历史中处于什么位置请用 App 查看。',
+    watchLabel:'关注点：',
+    goLabel:'前往商家 —',
+
+    methodH:'选品标准',
+    methodLede:'比价网站要让人看得见清单背后的逻辑才有用。我们的标准如下。',
+    m1h:'先看波动性',
+    m1p:'优先选择价格真正会动的商品，也就是有促销周期的消费电子。价格恒定的商品没有比较的必要。',
+    m2h:'佣金不决定排序',
+    m2p:'这些链接可能为我们带来佣金，但佣金率不是排序的输入项。App 中会区分标示联盟链接与普通链接。',
+    m3h:'AI 不改写商品信息',
+    m3p:'我们不让 AI 改写商家发布的商品名称或规格。AI 只负责挑选、排序和补充说明，原始数据原样传递。',
+
+    discH:'披露事项',
+    d1b:'联盟链接披露。',
+    d1p:'本页面指向商家的链接为联盟链接。若你通过链接购买，我们可能从商家获得佣金。这不会改变你支付的价格，佣金也不参与排序。',
+    d2b:'关于价格。',
+    d2p:'本页面不标注价格。商家价格频繁变动，可能与包括 App 在内的其他地方显示的数字不同。购买前请务必在商家结算页确认最终金额。',
+    d3b:'关于 AI 预测。',
+    d3p:'购买时机建议是基于历史价格的统计估算，无法预见促销、缺货或汇率变动，也可能出错。请仅作为判断依据之一参考。',
+
+    foot1:'creativelab-everyone · 联系 creativelab.choi@gmail.com',
+    foot2:'本页面通过联盟营销运营 · 个人数据保存在设备中，不会发送到我们的服务器',
+
+    p:{
+      xm5:{ cat:'耳机', name:'索尼 WH-1000XM5 无线降噪耳机',
+        note:'头戴式降噪的标杆产品。上市已有数年，商家不是持续降价而是一波一波地打折，因此标价与实际成交价之间的差距特别大。',
+        watch:'同系列新机型出现会把这一代的价格压下去。要分辨眼前的折扣是真正的低点，还是只是回到平时的成交价。' },
+      appro:{ cat:'耳塞', name:'苹果 AirPods Pro 第二代（USB-C）',
+        note:'苹果官方价格固定，波动全部来自第三方商家。这与多数商品相反 — 与其长期盯住一家，不如同时比较多家。',
+        watch:'看商家之间的价差，而不是趋势线。多家同时调价通常是厂商主导的促销。' },
+      t7:{ cat:'存储', name:'三星 T7 Shield 1TB 移动固态硬盘',
+        note:'闪存价格跟随存储器行情而非零售日历，可能连续数月朝同一方向漂移。三防的 Shield 版本通常比同容量的普通 T7 贵一截。',
+        watch:'各容量的每 TB 单价。即使标价看起来更高，2TB 型号的每 TB 成本往往优于 1TB。' },
+      mx3s:{ cat:'配件', name:'罗技 MX Master 3S 无线鼠标',
+        note:'生命周期长的产品，标价稳定但短期折扣频繁。配色版本与 Mac 专用版单独定价，同一款鼠标会同时存在好几个价格。',
+        watch:'配色差价。下单前看看其他颜色 — 硬件相同，常常更便宜。' },
+      kindle:{ cat:'电子书阅读器', name:'亚马逊 Kindle Paperwhite（2024）',
+        note:'官方与第三方商家同时销售，但打折时间并不总是一致。含广告版与无广告版是价格不同的两个商品。',
+        watch:'你比较的这款是否含锁屏广告。这是同一台 Kindle 价格看起来不同的最常见原因。' },
+      anker:{ cat:'充电', name:'Anker 20,000mAh 移动电源（30W，数显）',
+        note:'规格相近而价格差异巨大的拥挤品类。仅看容量说明不了什么，能否真正给笔记本快充取决于输出功率和接口数量。',
+        watch:'看输出功率，不是容量。同为 20,000mAh，充电速度可以相差三倍。' },
+      watch:{ cat:'穿戴设备', name:'Apple Watch SE 第二代（GPS，40mm）',
+        note:'系列中的入门款，价格被当前旗舰的定价锚住。表壳尺寸、表带尺寸和蜂窝版本各自影响价格，而各商家的组合库存并不均衡。',
+        watch:'表带与尺寸的组合。完全相同的表，S/M 与 M/L 版本经常价格不同。' }
+    }
+  },
+
+  ja: {
+    eyebrow:'オンデバイス AI 価格比較',
+    h1:'価格を比べ、買い時まで見きわめる',
+    sub:'複数の販売店の価格をまとめて比較し、価格履歴から今日が買い時かどうかを判断します。AI の計算はすべて端末内で行われ、検索内容が外部に出ることはありません。',
+    chip1:'オンデバイス', c1h:'AI は端末の中で動きます',
+    c1p:'検索順位づけ、入力ミスの補正、価格予測、パーソナライズはすべてローカルで実行されます。何を検索したかはサーバーに送られず、オフラインでも動作します。',
+    chip2:'価格推移', c2h:'今買うか、待つか',
+    c2p:'収集した価格履歴からトレンドを推定し、30日先を予測して信頼区間とともに示します。それが推定であること、不確かさの幅も必ず併記します。',
+    chip3:'4言語対応', c3h:'English · 한국어 · 中文 · 日本語',
+    c3p:'端末の言語に合わせて自動的に切り替わります。価格は販売店の通貨のまま表示し、為替換算は行いません。画面の数字と実際の支払額がずれません。',
+
+    picksH:'注目している商品',
+    picksLede:'価格の動きを追う価値がある商品だけを選びました。このページには価格を記載しません — 静的なページに載せるには変動が速すぎて信頼できないからです。現在価格は販売店で、その価格が履歴のどのあたりかはアプリでご確認ください。',
+    watchLabel:'見るべき点：',
+    goLabel:'販売店で見る —',
+
+    methodH:'選定の基準',
+    methodLede:'価格比較サイトは、リストの背景が見えてはじめて役に立ちます。私たちの基準は次のとおりです。',
+    m1h:'まず変動幅',
+    m1p:'実際に価格が動く商品 — 販促サイクルのある家電を優先します。価格が動かない商品は比較する意味がありません。',
+    m2h:'手数料は並び順を決めません',
+    m2p:'これらのリンクから手数料を得ることがありますが、手数料率は並び順の入力にはなりません。アプリではアフィリエイトリンクと通常リンクを区別して表示します。',
+    m3h:'商品情報を AI が書き換えません',
+    m3p:'販売店が掲載した商品名や仕様を AI が書き換えることはありません。AI は選び、順位をつけ、説明を添えるだけで、元のデータはそのまま渡します。',
+
+    discH:'開示事項',
+    d1b:'アフィリエイトの開示。',
+    d1p:'このページの販売店へのリンクはアフィリエイトリンクです。リンク経由でご購入いただくと、販売店から手数料を受け取る場合があります。お支払い額が変わることはなく、手数料は順位に反映されません。',
+    d2b:'価格について。',
+    d2p:'このページに価格は記載していません。販売店の価格は頻繁に変わり、アプリを含む他所の表示と異なることがあります。ご購入前に必ず販売店の決済画面で最終金額をご確認ください。',
+    d3b:'AI 予測について。',
+    d3p:'買い時の提案は過去の価格に基づく統計的な推定です。販促や在庫切れ、為替変動を見通すことはできず、外れることもあります。判断材料のひとつとしてご利用ください。',
+
+    foot1:'creativelab-everyone · お問い合わせ creativelab.choi@gmail.com',
+    foot2:'このページはアフィリエイトにより運営されています · 個人データは端末内に保存され、当方のサーバーには送信されません',
+
+    p:{
+      xm5:{ cat:'ヘッドホン', name:'ソニー WH-1000XM5 ワイヤレスノイズキャンセリングヘッドホン',
+        note:'オーバーイヤー型ノイズキャンセリングの基準機です。発売から数年が経ち、販売店は常時値引きではなく波のように値引きするため、定価と実売価格の差が特に大きくなっています。',
+        watch:'同シリーズの後継機が出るとこの世代の価格が下がります。目の前の値引きが本当の底値か、いつもの実売価格に戻っただけかを見きわめてください。' },
+      appro:{ cat:'イヤホン', name:'Apple AirPods Pro（第2世代・USB-C）',
+        note:'Apple 直販の価格は固定なので、変動はすべて第三者の販売店から生じます。多くの商品とは逆の構造で、一店舗を長く追うより複数店舗を同時に比べるほうが有効です。',
+        watch:'トレンドではなく販売店間の価格差。複数店が同時に動く場合はメーカー主導の販促であることが多いです。' },
+      t7:{ cat:'ストレージ', name:'Samsung T7 Shield 1TB ポータブル SSD',
+        note:'フラッシュストレージの価格は小売の販促暦ではなくメモリ市況に従うため、数か月にわたり一方向へ動くことがあります。防水防塵の Shield 版は同容量の通常 T7 より割高になるのが通例です。',
+        watch:'容量ごとの 1TB あたり単価。表示価格が高く見えても、2TB モデルのほうが 1TB より TB 単価で有利な場合が多くあります。' },
+      mx3s:{ cat:'周辺機器', name:'ロジクール MX Master 3S ワイヤレスマウス',
+        note:'寿命の長い製品で、定価は安定している一方、短期の値引きが頻繁に入ります。カラー違いと Mac 向けモデルは別々に値付けされるため、同じマウスが同時に複数の価格で並びます。',
+        watch:'カラーごとの価格差。購入前に他の色を確認してください — ハードウェアは同じで安いことがよくあります。' },
+      kindle:{ cat:'電子書籍リーダー', name:'Amazon Kindle Paperwhite（2024）',
+        note:'メーカー直販と第三者販売店の双方で扱われますが、値引きの時期は必ずしも一致しません。広告つきモデルと広告なしモデルは価格の異なる別商品です。',
+        watch:'比較している出品がロック画面広告つきかどうか。同じ Kindle の価格が違って見える最も多い理由です。' },
+      anker:{ cat:'充電', name:'Anker 20,000mAh モバイルバッテリー（30W・デジタル表示）',
+        note:'仕様がほぼ同じでも価格差が大きい混雑したカテゴリです。容量だけでは判断できず、ノートPCを実際に急速充電できるかは出力ワット数とポート数で決まります。',
+        watch:'容量ではなく出力ワット数。同じ 20,000mAh でも充電速度が3倍違うことがあります。' },
+      watch:{ cat:'ウェアラブル', name:'Apple Watch SE（第2世代・GPS・40mm）',
+        note:'シリーズの入門モデルのため、価格は現行の上位機の価格に引っ張られます。ケースサイズ、バンドサイズ、セルラーの有無がそれぞれ価格を変え、販売店ごとに在庫の組み合わせが偏っています。',
+        watch:'バンドとサイズの組み合わせ。まったく同じ時計でも S/M と M/L で価格が異なることが頻繁にあります。' }
+    }
+  }
+};
+
+var SUPPORTED = ['en','ko','zh','ja'];
+
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+function renderPicks(t){
+  var html = PRODUCTS.map(function(prod){
+    var d = t.p[prod.id];
+    return '<div class="pick">'
+      + '<div class="cat">' + esc(d.cat) + '</div>'
+      + '<div class="name">' + esc(d.name) + '</div>'
+      + '<p class="note">' + esc(d.note) + '</p>'
+      + '<div class="watch"><b>' + esc(t.watchLabel) + '</b> ' + esc(d.watch) + '</div>'
+      + '<a class="go" href="' + prod.url + '" target="_blank" rel="sponsored noopener">'
+      + esc(t.goLabel) + ' ' + esc(prod.store) + ' →</a>'
+      + '</div>';
+  }).join('');
+  document.getElementById('picks').innerHTML = html;
+}
+
+function apply(lang){
+  var t = I18N[lang] || I18N.en;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var v = t[el.getAttribute('data-i18n')];
+    if (v !== undefined) el.textContent = v;
+  });
+  renderPicks(t);
+  document.querySelectorAll('.langs button').forEach(function(b){
+    b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang));
+  });
+  try { localStorage.setItem('cheapest-ai-lang', lang); } catch (e) {}
+}
+
+function initialLang(){
+  var saved;
+  try { saved = localStorage.getItem('cheapest-ai-lang'); } catch (e) {}
+  if (saved && SUPPORTED.indexOf(saved) >= 0) return saved;
+  var nav = (navigator.language || 'en').toLowerCase();
+  if (nav.indexOf('ko') === 0) return 'ko';
+  if (nav.indexOf('zh') === 0) return 'zh';
+  if (nav.indexOf('ja') === 0) return 'ja';
+  return 'en';
+}
+
+document.querySelectorAll('.langs button').forEach(function(b){
+  b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); });
+});
+apply(initialLang());
+</script>
 
 </body>
 </html>
