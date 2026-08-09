@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>최저가AI — 온디바이스 AI 가격비교</title>
+<meta name="description" content="여러 쇼핑몰 가격을 한 번에 비교하고, 구매 타이밍까지 기기 안에서 판단하는 AI 가격비교 앱." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600&family=Gaegu:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#F7F6F2; --surface:#FFFFFF; --ink:#191815; --soft:#615E57; --line:#E0DDD4;
+    --indigo:#3A2BD4; --amber:#F4C95D; --mint:#A6DBAE; --sky:#A4CBF2;
+    --display:'Fraunces',serif; --body:'Inter',sans-serif; --hand:'Gaegu',cursive;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+
+  header{position:sticky;top:0;z-index:20;background:rgba(247,246,242,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .mark{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.02em;text-decoration:none}
+  .mark span{color:var(--indigo)}
+  .bar nav{display:flex;gap:22px;font-size:14px;color:var(--soft);align-items:center}
+  .bar nav a{text-decoration:none}
+  .bar nav a:hover{color:var(--ink)}
+
+  .hero{padding:76px 0 26px;text-align:center}
+  .eyebrow{font-family:var(--hand);font-size:22px;color:var(--indigo);margin-bottom:14px}
+  .hero h1{font-family:var(--display);font-weight:700;letter-spacing:-.025em;line-height:1.08;
+    font-size:clamp(2.2rem,5.6vw,3.9rem);max-width:20ch;margin:0 auto}
+  .hero h1 .hl{position:relative;white-space:nowrap}
+  .hero h1 .hl::after{content:"";position:absolute;left:-2px;right:-2px;bottom:.08em;height:.34em;
+    background:var(--amber);z-index:-1;border-radius:3px;transform:rotate(-1deg)}
+  .hero p{margin:22px auto 0;font-size:clamp(1rem,2.2vw,1.14rem);color:var(--soft);max-width:44ch}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin:52px 0 8px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px}
+  .card h3{font-family:var(--display);font-size:17px;font-weight:600;margin-bottom:8px}
+  .card p{font-size:14px;color:var(--soft)}
+  .chip{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;
+    background:var(--mint);margin-bottom:10px}
+  .chip.sky{background:var(--sky)} .chip.amber{background:var(--amber)}
+
+  section.block{margin:56px 0}
+  section.block h2{font-family:var(--display);font-size:24px;font-weight:600;margin-bottom:14px}
+  .picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .pick{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;
+    text-decoration:none;display:block;transition:border-color .15s,transform .15s}
+  .pick:hover{border-color:var(--indigo);transform:translateY(-2px)}
+  .pick .name{font-weight:600;font-size:15px;margin-bottom:6px}
+  .pick .meta{font-size:13px;color:var(--soft)}
+  .pick .go{margin-top:12px;font-size:13px;color:var(--indigo);font-weight:600}
+
+  .notice{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:12px;padding:16px 18px;font-size:14px;color:var(--soft);margin:22px 0}
+  .notice b{color:var(--ink)}
+
+  footer{border-top:1px solid var(--line);margin-top:60px;padding:26px 0 44px;
+    font-size:13px;color:var(--soft);text-align:center;line-height:1.8}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="/">creativelab<span>-everyone</span></a>
+    <nav>
+      <a href="/">홈</a>
+      <a href="#disclosure">제휴 안내</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow">온디바이스 AI 가격비교</div>
+    <h1>가격 비교는 물론, <span class="hl">언제 살지</span>까지</h1>
+    <p>여러 쇼핑몰 가격을 한 번에 비교하고, 가격 추이를 분석해 지금이 살 때인지
+       판단합니다. 모든 AI 계산이 기기 안에서 이뤄져 검색 이력이 밖으로 나가지 않습니다.</p>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <span class="chip">온디바이스</span>
+      <h3>기기 안에서 계산</h3>
+      <p>가격 예측·검색 랭킹·개인화가 모두 휴대폰 안에서 돌아갑니다. 서버로 보내는
+         개인정보가 없고 오프라인에서도 동작합니다.</p>
+    </div>
+    <div class="card">
+      <span class="chip sky">가격 추이</span>
+      <h3>지금 살까, 기다릴까</h3>
+      <p>수집한 가격 이력으로 30일 예측과 신뢰 구간을 계산해 근거와 함께 알려줍니다.
+         예측이라는 사실과 한계도 함께 표시합니다.</p>
+    </div>
+    <div class="card">
+      <span class="chip amber">4개 언어</span>
+      <h3>한국어·English·中文·日本語</h3>
+      <p>기기 언어를 따라 자동 전환됩니다. 가격은 판매처 통화 그대로 표시하며
+         환율 변환을 하지 않아 실제 결제 금액과 어긋나지 않습니다.</p>
+    </div>
+  </div>
+
+  <section class="block">
+    <h2>추천 상품 살펴보기</h2>
+    <p style="color:var(--soft);font-size:14px;margin-bottom:16px">
+      아래 링크는 제휴 링크입니다. 클릭해도 추가 비용이 발생하지 않습니다.
+    </p>
+    <div class="picks">
+      <a class="pick" href="https://sovrn.co/1fq9rqk" target="_blank" rel="sponsored noopener">
+        <div class="name">Apple AirPods Pro</div>
+        <div class="meta">무선 이어폰 · 판매처에서 현재가 확인</div>
+        <div class="go">상품 보러 가기 →</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="block" id="disclosure">
+    <h2>제휴 안내</h2>
+    <div class="notice">
+      <b>이 페이지의 상품 링크는 제휴 링크입니다.</b><br>
+      링크를 통해 구매가 이뤄지면 판매처로부터 일정액의 수수료를 받을 수 있습니다.
+      구매자가 부담하는 가격은 달라지지 않습니다. 수수료 여부가 추천 순서에 영향을 주지
+      않도록, 앱에서는 제휴 링크와 일반 링크를 구분해 표시합니다.
+    </div>
+    <div class="notice">
+      <b>가격 정보에 대해.</b><br>
+      표시되는 가격과 수집 시각은 수집 시점 기준이며 실제 결제 화면과 다를 수 있습니다.
+      구매 전 판매처에서 최종 가격을 확인해 주세요. AI 구매 타이밍 추천은 가격 이력에
+      기반한 통계 추정이며, 프로모션·재고·환율 변동을 반영하지 못할 수 있습니다.
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    creativelab-everyone · 문의 creativelab.choi@gmail.com<br>
+    이 페이지는 제휴 마케팅으로 운영됩니다 · 개인정보는 기기에 보관되며 서버로 전송되지 않습니다
+  </div>
+</footer>
+
+</body>
+</html>
