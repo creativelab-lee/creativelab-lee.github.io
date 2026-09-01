@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>우리동네마켓 개인정보처리방침 · Privacy Policy</title>
+<meta name="description" content="우리동네마켓은 계정도 회사 서버도 없습니다. 데이터는 내 기기와, 내가 직접 연결한 이웃의 기기에만 존재합니다." />
+<style>
+  :root{--bg:#FFF8F3;--surface:#FFF;--ink:#1F2328;--soft:#6B7280;--line:#F0E4D8;--accent:#E8600F}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent)}
+  .wrap{max-width:720px;margin:0 auto;padding:0 24px}
+  header{border-bottom:1px solid var(--line);background:var(--surface)}
+  .bar{display:flex;align-items:center;gap:12px;height:60px}
+  .bar .back{font-size:14px;color:var(--soft);text-decoration:none}
+  h1{font-size:26px;margin:36px 0 6px}
+  .date{color:var(--soft);font-size:13.5px;margin-bottom:24px}
+  h2{font-size:18px;margin:32px 0 10px;padding-top:8px;border-top:1px solid var(--line)}
+  p,li{font-size:15px;color:var(--ink)}
+  ul{padding-left:20px;margin:8px 0}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--surface)}
+  .summary{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:20px 0}
+  .en{color:var(--soft);font-size:14px}
+  footer{margin:48px 0 40px;color:var(--soft);font-size:13px}
+</style>
+</head>
+<body>
+<header><div class="wrap bar"><a class="back" href="/">← CreativeLab</a></div></header>
+<main class="wrap">
+  <h1>우리동네마켓 개인정보처리방침</h1>
+  <div class="date">최종 수정일: 2026년 9월 1일 · Privacy Policy (English summary below)</div>
+
+  <div class="summary">
+    <p><strong>요약 — 우리동네마켓에는 계정이 없고, 회사(개발자) 서버가 없습니다.</strong>
+    등록한 물건과 채팅은 내 기기와, 내가 초대 코드를 직접 교환해 연결한 이웃의 기기 사이에서만
+    P2P(기기 간 직접 연결)로 오갑니다. 개발자는 어떤 데이터도 받지 않으며, 받을 서버 자체가 없습니다.</p>
+  </div>
+
+  <h2>1. 수집하는 개인정보</h2>
+  <p><strong>없습니다.</strong> 계정·이메일·전화번호·광고 식별자·위치·사용 통계 어느 것도 수집하거나
+  개발자에게 전송하지 않습니다. 앱에는 개발자 서버로 데이터를 보내는 코드 자체가 없습니다.</p>
+
+  <h2>2. 기기에 저장되는 것</h2>
+  <table>
+    <tr><th>항목</th><th>저장 위치</th><th>삭제 시점</th></tr>
+    <tr><td>프로필(닉네임·동네 이름)</td><td>앱 전용 저장 공간</td><td>앱 삭제 시</td></tr>
+    <tr><td>등록한 물건(제목·설명·가격·사진)</td><td>앱 전용 저장 공간</td><td>물건 삭제 또는 앱 삭제 시</td></tr>
+    <tr><td>채팅 내용</td><td>앱 전용 저장 공간</td><td>앱 삭제 시</td></tr>
+    <tr><td>설정(언어)</td><td>앱 전용 저장 공간</td><td>앱 삭제 시</td></tr>
+  </table>
+  <p>앱을 삭제하면 위 데이터가 모두 함께 삭제됩니다.</p>
+
+  <h2>3. 기기 간(P2P) 전송</h2>
+  <p>이 앱의 연결은 사용자가 <strong>초대 코드/응답 코드를 직접 교환한 상대와만</strong> 이루어집니다.
+  연결된 상대에게는 다음이 전송됩니다.</p>
+  <ul>
+    <li>프로필의 닉네임·동네 이름</li>
+    <li>내가 등록한 물건(제목·설명·가격·사진 포함)</li>
+    <li>내가 보낸 채팅 메시지</li>
+  </ul>
+  <p>전송은 WebRTC 표준 암호화(DTLS)로 보호되며, 개발자를 포함한 제3자 서버를 경유해 저장되지 않습니다.
+  연결 수립 과정에서 표준 STUN 서버(네트워크 주소 확인용)가 사용될 수 있으나, 여기에는 물건·채팅 등
+  콘텐츠가 전송되지 않습니다. 상대 기기에 이미 전달된 내용의 삭제는 tombstone 동기화로 전파되지만,
+  상대가 앱 밖에서 따로 보관한 사본까지 지울 수는 없습니다 — 신뢰할 수 있는 이웃과만 연결하세요.</p>
+
+  <h2>4. 권한</h2>
+  <p><strong>사진 보관함(선택)</strong> 한 가지만, 물건 사진을 등록할 때 요청합니다.
+  선택한 사진은 기기 안에서 축소되어 물건 정보에 저장될 뿐, 개발자에게 전송되지 않습니다.
+  카메라·위치·마이크·연락처에는 접근하지 않습니다.</p>
+
+  <h2>5. 제3자 제공·분석·광고</h2>
+  <p>없습니다. 분석 도구와 광고 SDK를 넣지 않았고, 결제·구독도 없습니다.</p>
+
+  <h2>6. 아동의 개인정보</h2>
+  <p>수집하는 정보가 없으므로 아동의 개인정보 또한 수집하지 않습니다.</p>
+
+  <h2>7. 문의</h2>
+  <p>creativelab.choi@gmail.com</p>
+
+  <h2 class="en">Privacy Policy (English)</h2>
+  <p class="en"><strong>Our Town Market does not collect any personal data, and has no developer server.</strong>
+  Your listings and chats travel only between your device and the devices of neighbors you explicitly
+  connected with by exchanging invite codes (peer-to-peer over WebRTC with standard DTLS encryption).</p>
+  <ul class="en">
+    <li><strong>Data collected by the developer:</strong> none — there is no server to receive it.</li>
+    <li><strong>Peer-to-peer transmission:</strong> your nickname, neighborhood name, listings
+      (including photos) and chat messages are sent only to peers you explicitly connected with.
+      A standard STUN server may be used to establish the connection; no content passes through it.</li>
+    <li><strong>Permissions:</strong> photo library only (optional), for attaching item photos.
+      Photos are resized on device and never sent to the developer.</li>
+    <li><strong>On-device storage:</strong> profile, listings, chats and settings live in the app's own
+      storage and are removed when you uninstall the app.</li>
+    <li><strong>Third parties, analytics, ads, purchases:</strong> none.</li>
+    <li><strong>Contact:</strong> creativelab.choi@gmail.com</li>
+  </ul>
+</main>
+<footer><div class="wrap">© 2026 CreativeLab</div></footer>
+</body>
+</html>
