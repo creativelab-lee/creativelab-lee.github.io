@@ -428,14 +428,14 @@ section{padding:clamp(48px,7vw,88px) 0}
     </div>
     <div id="pane-win" role="tabpanel" aria-labelledby="tab-win" hidden>
       <div class="code"><button class="copy" type="button">複製</button><span data-copy>irm https://raw.githubusercontent.com/inphilchoi/haru-pc/main/install.ps1 | iex</span></div>
-      <p class="note">從開始功能表開啟 <b>PowerShell</b> 後貼上。支援 Windows 10・11。安裝程式還會用 winget 安裝加密連線所需的 <b>OpenSSL</b> — 跳出系統管理員確認（UAC）視窗時請按<b>是</b>。之後需要新的配對 QR 碼，執行 <code>haru-pc pair</code>（有效 10 分鐘，僅限一次）；檢查背景服務用 <code>openclaw --profile haru gateway status</code>。</p>
+      <p class="note">從開始功能表開啟 <b>PowerShell</b> 後貼上。支援 Windows 10・11。安裝程式只在目前視窗暫時放寬執行原則（電腦設定維持不變），並透過 winget 官方來源安裝加密連線所需的 <b>OpenSSL</b> — 跳出系統管理員確認（UAC）視窗時請按<b>是</b>。之後需要新的配對 QR 碼，執行 <code>haru-pc pair</code>（有效 10 分鐘，僅限一次）；檢查背景服務用 <code>openclaw --profile haru gateway status</code>。</p>
     </div>
     <ol class="steps">
       <li><b>安裝所需元件</b><p>Node.js（沒有或版本太舊時會重新安裝・更新）、經過驗證版本的 OpenClaw，以及 Haru PC 安全外掛。</p></li>
       <li><b>安全地完成設定</b><p>所有變更都要經手機核准、加密連線（TLS）、僅限同一個 Wi-Fi 內直接連線。</p></li>
       <li><b>選擇連線方式</b><p>1) Haru 中繼（推薦）2) 自架直接連線。之後可以更改。</p></li>
       <li><b>選擇 AI</b><p>登入 ChatGPT、Claude、Gemini 等公開 AI 或使用 API 金鑰（預設是免費的 Gemini 金鑰），也可以用 Ollama 免費本機模型。登入都在各公司的官方頁面完成。</p></li>
-      <li><b>顯示連線 QR 碼</b><p>在背景保持執行，並顯示要用手機掃描的 QR 碼。</p></li>
+      <li><b>顯示連線 QR 碼</b><p>在背景保持執行，並自動在一個小圖片視窗中顯示要用手機掃描的 QR 碼。看不到視窗時，執行 <code>haru-pc pair --terminal</code> 在主控台顯示。</p></li>
     </ol>
     <p class="note">想先看看腳本內容的話：<a class="link" href="https://github.com/inphilchoi/haru-pc/blob/main/install.sh">install.sh</a> · <a class="link" href="https://github.com/inphilchoi/haru-pc/blob/main/install.ps1">install.ps1</a></p>
   </div>
@@ -462,7 +462,7 @@ section{padding:clamp(48px,7vw,88px) 0}
     </table>
     <p class="note" style="margin-top:28px"><b>免費開始的方式</b></p>
     <ol class="steps">
-      <li><b>Gemini 免費金鑰（預設）</b><p>安裝時選擇 AI 的步驟中直接按 Enter，到 <a class="link" href="https://aistudio.google.com/apikey">aistudio.google.com/apikey</a> 取得免費金鑰並貼上。之後也可以執行 <code>haru-pc model key gemini</code>。訊息會依 Google 的條款傳送給 Google。</p></li>
+      <li><b>Gemini 免費金鑰（預設）</b><p>安裝時選擇 AI 的步驟中直接按 Enter，到 <a class="link" href="https://aistudio.google.com/apikey">aistudio.google.com/apikey</a> 取得免費金鑰並貼上就完成了（不會再有其他提問）。預設模型是免費金鑰就能使用的 Gemini Flash。之後也可以執行 <code>haru-pc model key gemini</code>。訊息會依 Google 的條款傳送給 Google。</p></li>
       <li><b>Ollama 本機模型</b><p>安裝 <a class="link" href="https://ollama.com">Ollama</a> 後執行 <code>haru-pc model local</code>。免費且私密，但需要效能不錯的顯示卡或 16GB 以上記憶體。使用 <code>qwen3:8b</code>，並開啟唯讀模式。</p></li>
       <li><b>確認</b><p><code>haru-pc model</code> 可查看目前使用的模型。如果尚未設定，安裝程式會顯示警告，連線碼照常顯示，之後請執行 <code>haru-pc model choose</code>。</p></li>
       <li><b>原本的免費雲端模型已結束</b><p>OpenCode Zen 的免費「Space Bunny」已於 2026 年 10 月結束，現在會回傳錯誤（403 <code>FreeTierError</code>）。請改用上面任一方式。</p></li>

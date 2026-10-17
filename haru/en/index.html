@@ -428,14 +428,14 @@ section{padding:clamp(48px,7vw,88px) 0}
     </div>
     <div id="pane-win" role="tabpanel" aria-labelledby="tab-win" hidden>
       <div class="code"><button class="copy" type="button">Copy</button><span data-copy>irm https://raw.githubusercontent.com/inphilchoi/haru-pc/main/install.ps1 | iex</span></div>
-      <p class="note">Open <b>PowerShell</b> from the Start menu and paste it. Windows 10 and 11 are supported. The installer also installs <b>OpenSSL</b> (needed for the encrypted connection) with winget — Windows shows an administrator (UAC) prompt: choose <b>Yes</b>. Need a new pairing QR later? Run <code>haru-pc pair</code> (valid 10 minutes, one use); check the background service with <code>openclaw --profile haru gateway status</code>.</p>
+      <p class="note">Open <b>PowerShell</b> from the Start menu and paste it. Windows 10 and 11 are supported. The installer relaxes the execution policy for this window only (your PC settings stay as they are) and installs <b>OpenSSL</b> (needed for the encrypted connection) from winget's official source — Windows shows an administrator (UAC) prompt: choose <b>Yes</b>. Need a new pairing QR later? Run <code>haru-pc pair</code> (valid 10 minutes, one use); check the background service with <code>openclaw --profile haru gateway status</code>.</p>
     </div>
     <ol class="steps">
       <li><b>Installs what it needs</b><p>Node.js (installed or updated if it's missing or out of date), a tested version of OpenClaw, and the Haru PC safety plug-in.</p></li>
       <li><b>Sets things up safely</b><p>Every change needs approval on your phone, connections are encrypted (TLS), and direct access works only within the same Wi-Fi.</p></li>
       <li><b>Choose how to connect</b><p>1) Haru relay (recommended) 2) Self-hosted direct connection. You can change it later.</p></li>
       <li><b>Choose your AI</b><p>Sign in to a public AI like ChatGPT, Claude or Gemini, use an API key (a free Gemini key is the default), or a free local model with Ollama. Sign-ins happen on each company's own page.</p></li>
-      <li><b>A pairing QR code appears</b><p>Haru PC keeps running in the background and shows a QR code for your phone to scan.</p></li>
+      <li><b>A pairing QR code appears</b><p>Haru PC keeps running in the background and opens the QR code for your phone in a small picture window. If you don't see it, run <code>haru-pc pair --terminal</code> to show it in the console.</p></li>
     </ol>
     <p class="note">Want to read the script first? <a class="link" href="https://github.com/inphilchoi/haru-pc/blob/main/install.sh">install.sh</a> · <a class="link" href="https://github.com/inphilchoi/haru-pc/blob/main/install.ps1">install.ps1</a></p>
   </div>
@@ -462,7 +462,7 @@ section{padding:clamp(48px,7vw,88px) 0}
     </table>
     <p class="note" style="margin-top:28px"><b>Free ways to start</b></p>
     <ol class="steps">
-      <li><b>Gemini free key (default)</b><p>When the installer asks for an AI, just press Enter, get a free key at <a class="link" href="https://aistudio.google.com/apikey">aistudio.google.com/apikey</a>, and paste it. Or later: <code>haru-pc model key gemini</code>. Your messages go to Google under Google's terms.</p></li>
+      <li><b>Gemini free key (default)</b><p>When the installer asks for an AI, just press Enter, get a free key at <a class="link" href="https://aistudio.google.com/apikey">aistudio.google.com/apikey</a>, and paste it — that's all, no more questions. The default model is Gemini Flash, which works with a free key. Or later: <code>haru-pc model key gemini</code>. Your messages go to Google under Google's terms.</p></li>
       <li><b>Local model with Ollama</b><p>Install <a class="link" href="https://ollama.com">Ollama</a>, then run <code>haru-pc model local</code>. Free and private, but it needs a good GPU or 16GB of RAM or more. It uses <code>qwen3:8b</code> and turns on read-only mode.</p></li>
       <li><b>Check it</b><p><code>haru-pc model</code> shows the model in use. If none is set, the installer warns you and still shows the pairing code — run <code>haru-pc model choose</code> afterwards.</p></li>
       <li><b>The old free cloud model has ended</b><p>OpenCode Zen's free "Space Bunny" ended in October 2026 and now answers with an error (403 <code>FreeTierError</code>). Switch with one of the options above.</p></li>

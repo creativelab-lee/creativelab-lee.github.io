@@ -428,14 +428,14 @@ section{padding:clamp(48px,7vw,88px) 0}
     </div>
     <div id="pane-win" role="tabpanel" aria-labelledby="tab-win" hidden>
       <div class="code"><button class="copy" type="button">コピー</button><span data-copy>irm https://raw.githubusercontent.com/inphilchoi/haru-pc/main/install.ps1 | iex</span></div>
-      <p class="note">スタートメニューから<b>PowerShell</b>を開いて貼り付けます。Windows 10・11に対応しています。インストーラーは暗号化接続に必要な<b>OpenSSL</b>もwingetでインストールします。管理者の確認（UAC）画面が出たら<b>はい</b>を選んでください。あとで新しいペアリングQRが必要なら<code>haru-pc pair</code>（10分間有効・1回のみ）、バックグラウンドの動作確認は<code>openclaw --profile haru gateway status</code>です。</p>
+      <p class="note">スタートメニューから<b>PowerShell</b>を開いて貼り付けます。Windows 10・11に対応しています。インストーラーは実行ポリシーをこのウィンドウでのみ一時的に緩めます（PCの設定はそのままです）。暗号化接続に必要な<b>OpenSSL</b>もwingetの公式ソースからインストールします。管理者の確認（UAC）画面が出たら<b>はい</b>を選んでください。あとで新しいペアリングQRが必要なら<code>haru-pc pair</code>（10分間有効・1回のみ）、バックグラウンドの動作確認は<code>openclaw --profile haru gateway status</code>です。</p>
     </div>
     <ol class="steps">
       <li><b>必要なものをインストール</b><p>Node.js（ない場合や古い場合は新規インストール・アップデート）、検証済みバージョンのOpenClaw、Haru PC安全プラグイン。</p></li>
       <li><b>安全に設定</b><p>変更する作業はすべてスマートフォンで承認、暗号化接続（TLS）、直接アクセスは同じWi-Fi内のみ。</p></li>
       <li><b>接続方法を選択</b><p>1) Haruリレー（おすすめ） 2) セルフホスト直接接続。あとから変更できます。</p></li>
       <li><b>AIを選択</b><p>ChatGPT・Claude・Geminiなどの公開AIへのログインやAPIキー（無料のGeminiキーが既定）、またはOllamaの無料ローカルモデル。ログインは各社の公式ページで行います。</p></li>
-      <li><b>接続用QRが表示されます</b><p>バックグラウンドで起動し、スマートフォンで読み取るQRを表示します。</p></li>
+      <li><b>接続用QRが表示されます</b><p>バックグラウンドで起動し、スマートフォンで読み取るQRを小さな画像ウィンドウで自動的に開きます。表示されないときは<code>haru-pc pair --terminal</code>でコンソールに表示します。</p></li>
     </ol>
     <p class="note">先にスクリプトを読んでおきたい場合は <a class="link" href="https://github.com/inphilchoi/haru-pc/blob/main/install.sh">install.sh</a> · <a class="link" href="https://github.com/inphilchoi/haru-pc/blob/main/install.ps1">install.ps1</a></p>
   </div>
@@ -462,7 +462,7 @@ section{padding:clamp(48px,7vw,88px) 0}
     </table>
     <p class="note" style="margin-top:28px"><b>無料ではじめる方法</b></p>
     <ol class="steps">
-      <li><b>Gemini無料キー（既定）</b><p>インストール中のAI選択でEnterを押し、<a class="link" href="https://aistudio.google.com/apikey">aistudio.google.com/apikey</a>で無料キーを取得して貼り付けます。あとから<code>haru-pc model key gemini</code>でも設定できます。メッセージはGoogleの規約に従ってGoogleに送られます。</p></li>
+      <li><b>Gemini無料キー（既定）</b><p>インストール中のAI選択でEnterを押し、<a class="link" href="https://aistudio.google.com/apikey">aistudio.google.com/apikey</a>で無料キーを取得して貼り付ければ完了です（追加の質問はありません）。既定のモデルは無料キーで使えるGemini Flashです。あとから<code>haru-pc model key gemini</code>でも設定できます。メッセージはGoogleの規約に従ってGoogleに送られます。</p></li>
       <li><b>Ollamaのローカルモデル</b><p><a class="link" href="https://ollama.com">Ollama</a>をインストールして<code>haru-pc model local</code>を実行します。無料でプライベートですが、高性能なGPUか16GB以上のRAMが必要です。<code>qwen3:8b</code>を使い、読み取り専用モードをオンにします。</p></li>
       <li><b>確認する</b><p><code>haru-pc model</code>で使用中のモデルを確認できます。未設定の場合、インストーラーは警告を出し、ペアリングコードはそのまま表示します。そのあと<code>haru-pc model choose</code>を実行してください。</p></li>
       <li><b>以前の無料クラウドモデルは終了しました</b><p>OpenCode Zenの無料「Space Bunny」は2026年10月に終了し、現在はエラー（403 <code>FreeTierError</code>）になります。上のいずれかに切り替えてください。</p></li>

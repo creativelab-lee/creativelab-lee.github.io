@@ -428,14 +428,14 @@ section{padding:clamp(48px,7vw,88px) 0}
     </div>
     <div id="pane-win" role="tabpanel" aria-labelledby="tab-win" hidden>
       <div class="code"><button class="copy" type="button">Copiar</button><span data-copy>irm https://raw.githubusercontent.com/inphilchoi/haru-pc/main/install.ps1 | iex</span></div>
-      <p class="note">Abra <b>PowerShell</b> desde el menú Inicio y pegue la línea. Compatible con Windows 10 y 11. El instalador también instala <b>OpenSSL</b> (necesario para la conexión cifrada) con winget: Windows muestra un aviso de administrador (UAC); elija <b>Sí</b>. ¿Necesita un QR de vinculación nuevo más tarde? Ejecute <code>haru-pc pair</code> (vale 10 minutos, un solo uso); compruebe el servicio en segundo plano con <code>openclaw --profile haru gateway status</code>.</p>
+      <p class="note">Abra <b>PowerShell</b> desde el menú Inicio y pegue la línea. Compatible con Windows 10 y 11. El instalador relaja la política de ejecución solo en esta ventana (la configuración de su PC no cambia) e instala <b>OpenSSL</b> (necesario para la conexión cifrada) desde el origen oficial de winget: Windows muestra un aviso de administrador (UAC); elija <b>Sí</b>. ¿Necesita un QR de vinculación nuevo más tarde? Ejecute <code>haru-pc pair</code> (vale 10 minutos, un solo uso); compruebe el servicio en segundo plano con <code>openclaw --profile haru gateway status</code>.</p>
     </div>
     <ol class="steps">
       <li><b>Instala lo necesario</b><p>Node.js (lo instala o actualiza si falta o es antiguo), una versión verificada de OpenClaw y el complemento de seguridad de Haru PC.</p></li>
       <li><b>Lo configura de forma segura</b><p>Todo lo que cambie algo requiere aprobación en el teléfono, conexión cifrada (TLS) y acceso directo solo dentro de la misma Wi-Fi.</p></li>
       <li><b>Elige la conexión</b><p>1) Relé de Haru (recomendado) 2) Conexión directa autoalojada. Puede cambiarla más adelante.</p></li>
       <li><b>Elige la IA</b><p>Inicie sesión en una IA pública como ChatGPT, Claude o Gemini, use una clave de API (por defecto, una clave gratuita de Gemini) o un modelo local gratuito con Ollama. El inicio de sesión se hace en la página oficial de cada empresa.</p></li>
-      <li><b>Aparece el QR de conexión</b><p>Queda encendido en segundo plano y muestra un QR para escanear con el teléfono.</p></li>
+      <li><b>Aparece el QR de conexión</b><p>Queda encendido en segundo plano y abre el QR para escanear con el teléfono en una pequeña ventana de imagen. Si no la ve, ejecute <code>haru-pc pair --terminal</code> para mostrarlo en la consola.</p></li>
     </ol>
     <p class="note">Si quiere leer el script primero: <a class="link" href="https://github.com/inphilchoi/haru-pc/blob/main/install.sh">install.sh</a> · <a class="link" href="https://github.com/inphilchoi/haru-pc/blob/main/install.ps1">install.ps1</a></p>
   </div>
@@ -462,7 +462,7 @@ section{padding:clamp(48px,7vw,88px) 0}
     </table>
     <p class="note" style="margin-top:28px"><b>Formas gratuitas de empezar</b></p>
     <ol class="steps">
-      <li><b>Clave gratuita de Gemini (predeterminada)</b><p>Cuando el instalador le pida una IA, pulse Enter, obtenga una clave gratuita en <a class="link" href="https://aistudio.google.com/apikey">aistudio.google.com/apikey</a> y péguela. O más tarde: <code>haru-pc model key gemini</code>. Sus mensajes van a Google según las condiciones de Google.</p></li>
+      <li><b>Clave gratuita de Gemini (predeterminada)</b><p>Cuando el instalador le pida una IA, pulse Enter, obtenga una clave gratuita en <a class="link" href="https://aistudio.google.com/apikey">aistudio.google.com/apikey</a> y péguela: eso es todo, sin más preguntas. El modelo predeterminado es Gemini Flash, que funciona con una clave gratuita. O más tarde: <code>haru-pc model key gemini</code>. Sus mensajes van a Google según las condiciones de Google.</p></li>
       <li><b>Modelo local con Ollama</b><p>Instale <a class="link" href="https://ollama.com">Ollama</a> y ejecute <code>haru-pc model local</code>. Gratuito y privado, pero requiere una buena GPU o 16 GB o más de RAM. Usa <code>qwen3:8b</code> y activa el modo de solo lectura.</p></li>
       <li><b>Compruébelo</b><p><code>haru-pc model</code> muestra el modelo en uso. Si no hay ninguno, el instalador avisa y muestra igualmente el código de vinculación; después ejecute <code>haru-pc model choose</code>.</p></li>
       <li><b>El antiguo modelo en la nube gratuito terminó</b><p>El «Space Bunny» gratuito de OpenCode Zen terminó en octubre de 2026 y ahora responde con un error (403 <code>FreeTierError</code>). Cambie a una de las opciones anteriores.</p></li>
